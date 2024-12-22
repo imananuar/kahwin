@@ -50,9 +50,12 @@ const Topbar = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-      <div className="flex items-end justify-between pt-4 pb-4 px-8">
+      <div className="flex items-end justify-between pt-8 pb-8 px-8">
         <div className="my-auto">
           <p>Memoria</p>
+        </div>
+        <div className="my-auto">
+          {/* Build search button like AirBnb */}
         </div>
         <div>
           <Dialog>
