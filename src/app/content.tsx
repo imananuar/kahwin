@@ -8,19 +8,19 @@ import Link from "next/link";
 const Content = () => {
     const paidImages = [
         {
+            id: "dress",
             imgUrl: "/assets/wedding-shoes.jpg",
             hover: "Browse for Dress",
-            link: "/home"
         },
         {
+            id: "photographer",
             imgUrl: "/assets/img-2.jpg",
             hover: "Browse for Photographer",
-            link: "/about"
         },
         {
+            id: "venue",
             imgUrl: "/assets/img-3.jpg",
             hover: "Browse for Venue",
-            link: "contact"
         }
     ]
 
@@ -44,9 +44,9 @@ const Content = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1.5, delay: 2.5 + i + 1 }}
-                    key={i}
+                    key={img.id}
                 >
-                    <Link href={img.link} className="block relative w-full h-full">
+                    <Link href={`/directory/${img.id}`} className="block relative w-full h-full">
                         <Image
                             src={img.imgUrl}
                             alt="Picture of the author"
@@ -98,10 +98,10 @@ const AnimatedText = ({
         <Wrapper className = {className}>
             <span className="sr-only">{text}</span>
             <motion.span initial="hidden" animate="visible" transition={{staggerChildren: 0.05}} aria-hidden>
-                {text.split('').map(char => (
+                {text.split('').map((char, i) => (
                     <motion.span
                         variants={defaultAnimations}
-                        key={char}
+                        key={i}
                     >
                         {char}
                     </motion.span>
