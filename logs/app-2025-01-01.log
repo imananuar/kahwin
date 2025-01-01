@@ -10,3 +10,9 @@
         [user]: New user created!
         
 2025-01-01 11:23:48 [INFO] [undefined] [user]: New user created!
+2025-01-01 11:59:51 [INFO] [register]: {"userId":"76aa173b-200a-46b0-bd2d-1492e49200d2","event":"register","message":"Succesful"}
+2025-01-01 12:03:24 [INFO] [register]: Succesful
+2025-01-01 12:04:23 [INFO] [register]: {"userId":"9a997e60-2972-4f7b-9928-6d99383615ec","event":"register","message":"Succesful"}
+2025-01-01 12:05:57 [INFO] [register]: {"userId":"bbcf7272-dde4-430f-b24b-eecf0b9c296d","event":"register","message":"Succesful"}
+2025-01-01 12:14:09 [INFO] [register]: {"ip":"::1","userId":"456bd0d1-9b42-4636-9246-190759e9673b","event":"register","message":"Succesful"}
+2025-01-01 12:17:14 [INFO] [register]: {"ip":"::1","userId":"5da1fb29-7435-4662-8d37-7d6429fb8e42","event":"register","message":"Succesful"}

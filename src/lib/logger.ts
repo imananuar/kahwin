@@ -2,6 +2,7 @@ import { randomUUID } from 'crypto';
 import path from 'path';
 import winston from 'winston';
 import 'winston-daily-rotate-file';
+import { LogMessage } from './interfaces/log';
 
 const streamingLogPath = path.join(process.cwd(), 'logs', 'app-stream.log');
 const rotatingLogPath = path.join(process.cwd(), 'logs', 'app-%DATE%.log');
@@ -9,9 +10,8 @@ const rotatingLogPath = path.join(process.cwd(), 'logs', 'app-%DATE%.log');
 const customFormat = winston.format.combine(
     winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     winston.format.printf(
-      ({ timestamp, level, message, ip, tag }) =>
-        `${timestamp} [${level.toUpperCase()}] [${ip}] [${tag || 'general'}]: ${message}`
-
+      ({ timestamp, level, message, tag }) =>
+        `${timestamp} [${level.toUpperCase()}] [${tag || 'general'}]: ${message}`
     )
   );
 
@@ -38,10 +38,10 @@ const logger = winston.createLogger({
 
 export const taggedLogger = (tag: string) => {
     return {
-        info: (message: string) => logger.info(message, { tag }),
-        warn: (message: string) => logger.warn(message, { tag }),
-        error: (message: string) => logger.error(message, { tag }),
-        debug: (message: string) => logger.debug(message, { tag }),
+        info: (logMessage: LogMessage) => logger.info(JSON.stringify(logMessage), { tag }),
+        warn: (logMessage: LogMessage) => logger.info(JSON.stringify(logMessage), { tag }),
+        error: (logMessage: LogMessage) => logger.info(JSON.stringify(logMessage), { tag }),
+        debug: (logMessage: LogMessage) => logger.info(JSON.stringify(logMessage), { tag }),
     };
 };
 

@@ -12,14 +12,7 @@ import  RegisterPartnerFields from "../components/fields/RegisterPartnerFields";
 import RegisterFields from "../components/fields/RegisterFields";
 import CommonForm from "../components/forms/CommonForm";
 import { encryptText } from "@/lib/security";
-
-interface User {
-    firstName: string;
-    lastName: string;
-    birthPlace: string;
-    email: string;
-    password: string;
-}
+import { User } from "@prisma/client";
 
 export default function Register() {
     const [isFilledIn, setIsFilledIn] = useState<Boolean>(false);

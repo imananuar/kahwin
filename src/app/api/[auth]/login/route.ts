@@ -1,13 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { prisma } from '@/lib/prisma'
-
-interface LoginRequest {
-    email: string;
-    password: string;
-}
-
-
+import { LoginRequest } from "@/lib/interfaces/auth";
 
 export async function POST(request: NextRequest) {
     const body: LoginRequest = await request.json();
