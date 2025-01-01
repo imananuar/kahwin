@@ -39,9 +39,9 @@ const logger = winston.createLogger({
 export const taggedLogger = (tag: string) => {
     return {
         info: (logMessage: LogMessage) => logger.info(JSON.stringify(logMessage), { tag }),
-        warn: (logMessage: LogMessage) => logger.info(JSON.stringify(logMessage), { tag }),
-        error: (logMessage: LogMessage) => logger.info(JSON.stringify(logMessage), { tag }),
-        debug: (logMessage: LogMessage) => logger.info(JSON.stringify(logMessage), { tag }),
+        warn: (logMessage: LogMessage) => logger.warn(JSON.stringify(logMessage), { tag }),
+        error: (logMessage: LogMessage) => logger.error(JSON.stringify(logMessage), { tag }),
+        debug: (logMessage: LogMessage) => logger.debug(JSON.stringify(logMessage), { tag }),
     };
 };
 

@@ -1,4 +1,5 @@
 import { compareSync, genSaltSync, hashSync } from "bcrypt-ts";
+import { randomBytes } from "crypto";
 
 const crypto = require('crypto');
 
@@ -29,4 +30,9 @@ export const hashText = async (text: string): Promise<string> => {
 
 export const compareHash = async (encryptedText: string, hashText: string): Promise<Boolean> => {
   return compareSync(encryptedText, hashText)
+}
+
+export const generateRandomID = (length: number): string => {
+  const bytes = randomBytes(length);
+  return bytes.toString('base64').replace(/\+/g, '0').replace(/\//g, '1').slice(0, length);
 }

@@ -1,6 +1,7 @@
 export interface LogMessage {
     ip: string | undefined,
-    userId: string,
+    userId?: string,
+    email?: string,
     event: string,
     message: string,
 }
