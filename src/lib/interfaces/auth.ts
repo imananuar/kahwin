@@ -3,7 +3,9 @@ export interface RegisterRequest {
     lastName: string,
     birthPlace: string,
     email: string,
-    password?: string,   
+    password?: string,
+    registerPartner: string,
+    partner?: string    
 }
 
 export interface LoginRequest {

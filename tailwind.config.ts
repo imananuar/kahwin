@@ -27,11 +27,9 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        c_cream: '#CBBAB5',
-        c_rose: '#AB8C7D',
-        c_peach: '#BE7A5B',
-        c_ruby: '#A45551',
-        c_olive: '#797E68',
+        wedding: {
+          "primary": '#F5EDE6'
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
