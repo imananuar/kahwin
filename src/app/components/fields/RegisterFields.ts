@@ -38,7 +38,26 @@ const RegisterFields = [
         placeholder: "Enter your password",
         type: "password",
         defaultValue: '',
-        validation: { required: "Password is required!" },
+        validation: { required: "Confirm Password is required!", minLength: { value: 8, message: "Password must be at least 8 characters" }},
+    },
+    {
+        name: "confirmPassword",
+        label: "Confirm Password",
+        placeholder: "Confirm your password",
+        type: "password",
+        defaultValue: '',
+        validation: { 
+            required: "Confirm Password is required!",
+            validate: (value: string, formValues: any) => value === formValues.password || "Passwords do not match",
+        },
+        extraValidation: true
+    },
+    {
+        name: "registerPartner",
+        label: "Register with Partner",
+        placeholder: "Register with Partner",
+        type: "checkbox",
+        defaultValue: 'checked',
     },
 ];
 

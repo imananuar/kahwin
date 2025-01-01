@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\imana\\Dev\\Webapp\\kahwin.my\\logs\\.1b85f66e7f287a614e940de597c62d8e51729f2c-audit.json",
+    "files": [
+        {
+            "date": 1735700249936,
+            "name": "C:\\Users\\imana\\Dev\\Webapp\\kahwin.my\\logs\\app-2025-01-01.log",
+            "hash": "c0ae80605803d4525f71124d9aa32ce86153d32bd35662661f6ad4375e1ae72a"
+        }
+    ],
+    "hashType": "sha256"
+}

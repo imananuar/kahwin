@@ -1,8 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from "react";
-import RegisterFields from "../components/fields/registerFields";
-import ReusableForm from "../components/forms/ReusableForm";
+import React, { useState } from "react";
 import {
     Card,
     CardContent,
@@ -10,39 +8,59 @@ import {
     CardHeader,
     CardTitle,
   } from "@/components/ui/card"
-import RegisterPartnerFields from "../components/fields/RegisterPartnerFields";
-import { useForm } from "react-hook-form";
+import  RegisterPartnerFields from "../components/fields/RegisterPartnerFields";
+import RegisterFields from "../components/fields/RegisterFields";
+import CommonForm from "../components/forms/CommonForm";
+import { encryptText } from "@/lib/security";
 
 interface User {
-    firstName: String;
-    lastName: String;
-    birthPlace: String;
-    email: String;
-    password: String;
+    firstName: string;
+    lastName: string;
+    birthPlace: string;
+    email: string;
+    password: string;
 }
-
 
 export default function Register() {
     const [isFilledIn, setIsFilledIn] = useState<Boolean>(false);
     const [userData, setUserData] = useState<User>();
     const [partnerData, setPartnerData] = useState<User>();
 
-    const handleSubmit = (userData: any) => {
-        console.log("Form submitted:", userData);
-        // Call your login API here
-        setIsFilledIn(true);
+    const handleRegisterUser = async (userData: any) => {
+        // setIsFilledIn(true);
+        const encryptedPassword = encryptText(userData.password);
+        userData.password = encryptedPassword;
         setUserData(userData);
-        return {};        
+        
+        try {
+            const response = await fetch("/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(userData)
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to register");
+            }
+
+            const result = await response.json();
+            console.log("API Response:", result);
+
+        } catch (error) {
+            console.error("Error during API Call...", error)
+        }
+
+        // Send thank you email
     };
 
-    const handlePartnerSubmit = (partnerData: any) => {
-        console.log("userData", userData);
-        console.log("partnerData: ", partnerData);
-        console.log(partnerData);
+    const handleRegisterPartner = (partnerData: any) => {
         setPartnerData(partnerData);
+
+        // Create temporary account
+        // Send confirm your password
     }
-    const form = useForm({ mode: "onChange", shouldFocusError: true });
-    const partnerForm = useForm({ mode: "onChange", shouldFocusError: true });
       return (
         <div className="flex justify-center items-center min-h-screen">
             {isFilledIn ? (
@@ -52,9 +70,9 @@ export default function Register() {
                         <CardDescription>We will send to his / her email for password creation</CardDescription>
                     </CardHeader>
                     <CardContent>
-                            <ReusableForm
+                            <CommonForm
                             fields={RegisterPartnerFields}
-                            onSubmit={handlePartnerSubmit}
+                            onSubmit={handleRegisterPartner}
                             buttonName="Send Email"
                             reset={true}
                             />
@@ -67,9 +85,9 @@ export default function Register() {
                         <CardDescription>First let's register your account.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                            <ReusableForm
+                            <CommonForm
                             fields={RegisterFields}
-                            onSubmit={handleSubmit}
+                            onSubmit={handleRegisterUser}
                             buttonName="Register"
                             reset={false}
                             />

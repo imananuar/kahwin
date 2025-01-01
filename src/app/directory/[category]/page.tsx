@@ -14,8 +14,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
 export default async function DirectoryPage({ params }: Props) {
     const { category } = params;
-    console.log(category);
-    
     return (
         <div>
             <h1>Category: {category}</h1>

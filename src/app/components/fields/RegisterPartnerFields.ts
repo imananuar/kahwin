@@ -26,7 +26,7 @@ const RegisterPartnerFields = [
     },        
     {
         name: "partnerEmail",
-        label: "Email",
+        label: "Partner Email",
         defaultValue: '',
         placeholder: "Enter your email",
         type: "text",
