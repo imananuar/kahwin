@@ -9,6 +9,16 @@
             "date": 1735700249936,
             "name": "C:\\Users\\imana\\Dev\\Webapp\\kahwin.my\\logs\\app-2025-01-01.log",
             "hash": "c0ae80605803d4525f71124d9aa32ce86153d32bd35662661f6ad4375e1ae72a"
+        },
+        {
+            "date": 1735826937513,
+            "name": "C:\\Users\\imana\\Dev\\Webapp\\kahwin.my\\logs\\app-2025-01-02.log",
+            "hash": "274e4969f0e272203ae7b11a5ece661d6a2e4284358a136fc94606a5cb23b2bf"
+        },
+        {
+            "date": 1735914179049,
+            "name": "C:\\Users\\imana\\Dev\\Webapp\\kahwin.my\\logs\\app-2025-01-03.log",
+            "hash": "94aa1b35f77129f3036831759f32a72b13884596598d3b940bf4d54ee5d81293"
         }
     ],
     "hashType": "sha256"

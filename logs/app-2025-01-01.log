@@ -25,3 +25,4 @@
 2025-01-01 16:25:02 [ERROR] [register]: {"ip":"::1","email":"imananuar5367@gmail.com","event":"register","message":"User already exists"}
 2025-01-01 16:49:27 [INFO] [register]: {"ip":"::1","userId":"qQQPv0","event":"register","message":"Succesful"}
 2025-01-01 16:49:45 [ERROR] [register]: {"ip":"::1","email":"imananuar5367@gmail.com","event":"register","message":"User already exists"}
+2025-01-01 16:54:30 [INFO] [register]: {"ip":"::1","userId":"q10cDi","event":"register","message":"Succesful"}

@@ -13,18 +13,24 @@ import RegisterFields from "../components/fields/RegisterFields";
 import CommonForm from "../components/forms/CommonForm";
 import { encryptText } from "@/lib/security";
 import { User } from "@prisma/client";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/components/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import { ErrorResponse, SuccessResponse } from "@/lib/interfaces/api";
+import Link from "next/link";
 
 export default function Register() {
     const [isFilledIn, setIsFilledIn] = useState<Boolean>(false);
     const [userData, setUserData] = useState<User>();
     const [partnerData, setPartnerData] = useState<User>();
+    const { toast } = useToast();
+    const router = useRouter();
 
     const handleRegisterUser = async (userData: any) => {
-        setIsFilledIn(true);
         const encryptedPassword = encryptText(userData.password);
         userData.password = encryptedPassword;
         setUserData(userData);
-        
+    
         try {
             const response = await fetch("/api/auth/register", {
                 method: "POST",
@@ -35,10 +41,17 @@ export default function Register() {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to register");
+                toast({
+                    description: await response.json().then(result => result.error),
+                    action: (
+                        <Link href="/login">
+                            <ToastAction altText="Proceed to Login">Login</ToastAction>
+                        </Link>
+                      ),
+                })
+            } else {
+                setIsFilledIn(true);
             }
-
-            const result = await response.json();
 
         } catch (error) {
             console.error("Error during API Call...", error)
@@ -71,7 +84,12 @@ export default function Register() {
                 throw new Error("Failed to register");
             }
 
-            const result = await response.json();
+            toast({
+                title: "Partner account created!",
+                description: "Your partner now can login to the system!",
+            })
+
+            router.push("/");
 
         } catch (error) {
             console.error("Error during API Call...", error)
