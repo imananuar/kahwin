@@ -120,7 +120,7 @@ const CommonForm: React.FC<ShadFormProps> = ({
                                 {...formField}
                                 {...form.register(field.name, field.validation)}
                                 value={formField.value || ''}
-                                className="col-span-3"
+                                className="col-span-3 my-2"
                               />
                             </>
                           )
@@ -133,13 +133,6 @@ const CommonForm: React.FC<ShadFormProps> = ({
             )}
           />
         ))}
-
-        {footerContent && (
-          <div className="text-sm text-gray-600 text-center mt-4">
-            {footerContent}
-          </div>
-        )}
-
         <div className="mt-4">
           <Button
             type="submit"
@@ -149,6 +142,13 @@ const CommonForm: React.FC<ShadFormProps> = ({
             {buttonName}
           </Button>
         </div>
+
+        {footerContent && (
+          <div className="text-sm text-gray-600 text-right mt-2">
+            {footerContent}
+          </div>
+        )}
+
       </form>
     </Form>
   );

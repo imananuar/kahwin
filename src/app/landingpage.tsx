@@ -3,46 +3,64 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import React from "react";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { useForm } from "react-hook-form";
+import React, { use, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import CommonForm from "./components/forms/CommonForm";
+import { ExistingUserLoginFields, LoginFields, NewUserLoginFiels } from "./components/fields/LoginFields";
+import { useToast } from "@/components/hooks/use-toast";
+import { encryptText } from "@/lib/security";
+import { User } from "@prisma/client";
 
-interface LoginRequest {
-    email: string;
-    password: string;
-}
-  
 export default function LandingPage() {
-    const form = useForm<LoginRequest>();
-    const { register, handleSubmit } = useForm<LoginRequest>();
-    
-    async function callLoginAPI(payload: LoginRequest) {
-    const response = await fetch("/api/login", {
-        method: 'POST',
-        headers: {
-        'Content-Type': "application/json",
-        },
-        body: JSON.stringify(payload),
-    });
-    const data = await response.json();
+
+    const { toast } = useToast();
+    const [loginFields, setLoginFields] = useState(LoginFields);
+    const [loginAPI, setLoginAPI] = useState("/api/auth/verifyUser");
+
+    async function handleLogin(loginReq: any) {
+        // loginReq.password = encryptText(loginReq.password);
+        const response = await fetch(loginAPI, {
+            method: 'POST',
+            headers: {
+            'Content-Type': "application/json",
+            },
+            body: JSON.stringify(loginReq),
+        });
+
+        if (!response.ok) {
+            console.log("Response is: ", response.status)
+            if (response.status === 404) {
+                console.log("is the response ok meow??")
+                toast({
+                    description: response.json().then(result => result.error)
+                })
+            }
+        } else {
+            const data = await response.json();
+            if (data.type === "Existing") {
+                setLoginFields(ExistingUserLoginFields);
+                setLoginAPI("/api/auth/login");
+
+            } else {
+                setLoginFields(NewUserLoginFiels);
+                setLoginAPI("/api/auth/createPassword");
+            }
+        }
+        
     }
+
+    const footer: React.ReactNode = <>  Not registered yet?{" "}
+                                    <Link href="/register" className="underline">
+                                        Register now
+                                    </Link>
+                                </>
+    
     return (
         <div className="w-full h-screen flex items-center justify-center">
             <Image
@@ -73,6 +91,7 @@ export default function LandingPage() {
                 </div>
                 <div className="flex justify-center">
                     <div className="mx-auto my-12">
+
                         {/* Register */}
                         <Link href="/register">
                             <Button variant="secondary" className="w-[24rem] h-20 mx-4 text-xl bg-c_cream">
@@ -81,7 +100,10 @@ export default function LandingPage() {
                         </Link>
 
                         {/* Login */}
-                        <Dialog>
+                        <Dialog onOpenChange={() => {
+                            setLoginFields(LoginFields), 
+                            setLoginAPI("/api/auth/verifyUser")}}
+                        >
                             <DialogTrigger asChild>
                                 <Button variant="outline" className="w-[24rem] h-20 mx-4 text-xl">
                                     Continue your preparation journey
@@ -91,75 +113,13 @@ export default function LandingPage() {
                                 <DialogHeader>
                                     <DialogTitle className="m-auto">Login</DialogTitle>
                                 </DialogHeader>
-                                <Form {...form}>
-                                    <div className="grid gap-4 py-4">
-                                        <form onSubmit={handleSubmit(callLoginAPI)}>
-                                            <FormField
-                                                control={form.control}
-                                                name="email"
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <FormControl>
-                                                            <div className="grid grid-cols-4 items-center gap-4 mb-2">
-                                                                <Label htmlFor="email" className="text-right">
-                                                                    Email
-                                                                </Label>
-                                                                <Input
-                                                                    placeholder="Email"
-                                                                    {...field}
-                                                                    type="text"
-                                                                    id="username"
-                                                                    className="col-span-3"
-                                                                    {...register("email", {
-                                                                        required: "Email is required!",
-                                                                    })}
-                                                                />
-                                                            </div>
-                                                        </FormControl>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-
-                                            <FormField
-                                                control={form.control}
-                                                name="password"
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <FormControl>
-                                                            <div className="grid grid-cols-4 items-center gap-4 mb-2">
-                                                                <Label htmlFor="password" className="text-right">
-                                                                    Password
-                                                                </Label>
-                                                                <Input
-                                                                    type="password"
-                                                                    placeholder="password"
-                                                                    className="col-span-3"
-                                                                    {...field}
-                                                                    {...register("password", {
-                                                                        required: "Password is required!",
-                                                                    })}
-                                                                />
-                                                            </div>
-                                                        </FormControl>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-                                            <div className="">
-                                                <DialogDescription className="ml-4">
-                                                    Not register yet?{" "}
-                                                    <Link href="/register" className="underline">
-                                                        Register now
-                                                    </Link>
-                                                </DialogDescription>
-                                            </div>
-                                            <DialogFooter>
-                                                <Button type="submit">Login</Button>
-                                            </DialogFooter>
-                                        </form>
-                                    </div>
-                                </Form>
+                                <CommonForm 
+                                    fields={loginFields}
+                                    onSubmit={handleLogin}
+                                    footerContent={footer}
+                                    buttonName="Login"
+                                    reset={false}
+                                />
                             </DialogContent>
                         </Dialog>
                     </div>

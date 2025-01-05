@@ -16,13 +16,11 @@ import { User } from "@prisma/client";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { ErrorResponse, SuccessResponse } from "@/lib/interfaces/api";
 import Link from "next/link";
 
 export default function Register() {
     const [isFilledIn, setIsFilledIn] = useState<Boolean>(false);
     const [userData, setUserData] = useState<User>();
-    const [partnerData, setPartnerData] = useState<User>();
     const { toast } = useToast();
     const router = useRouter();
 

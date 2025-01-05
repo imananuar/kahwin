@@ -24,3 +24,6 @@
 2025-01-03 23:23:24 [ERROR] [register]: {"ip":"::1","email":"imananuar5367@gmail.com","event":"register","message":"User already exists"}
 2025-01-03 23:24:00 [ERROR] [register]: {"ip":"::1","email":"imananuar5367@gmail.com","event":"register","message":"User already exists"}
 2025-01-03 23:24:28 [ERROR] [register]: {"ip":"::1","email":"imananuar5367@gmail.com","event":"register","message":"User already exists"}
+2025-01-04 00:24:13 [INFO] [register]: {"ip":"::1","userId":"oLIrvt","event":"register","message":"Succesful"}
+2025-01-04 00:24:21 [INFO] [register]: {"ip":"::1","userId":"CsKbpF","event":"register","message":"Succesful"}
+2025-01-04 00:24:24 [ERROR] [register]: {"ip":"::1","email":"imananuar5367@gmail.com","event":"register","message":"User already exists"}
